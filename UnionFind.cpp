@@ -1,10 +1,10 @@
 #include "UnionFind.hpp"
 
-UnionFind::UnionFind(size_t n) : parent(n), size(n) {
+
+UnionFind::UnionFind(size_t n) : parent(n), size(n), numbers_of_elements(n) {
   for (std::size_t i = 0; i < n; i++) {
     parent[i] = i;
     size[i] = 1;
-    numbers_of_elements = n;
   }
 };
 
@@ -25,6 +25,10 @@ size_t UnionFind::find(size_t p) {
 }
 
 void UnionFind::union_sets(size_t p, size_t q) {
+  if (p >= numbers_of_elements or q >= numbers_of_elements) {
+    std::cerr << "Неверный id элемента в UnionFind::union_sets.  p, q, numbers_of_elements: " << p << " " << q << " " << getNumbersOfElements() << std::endl;
+    return;
+  }
   std::size_t root_p = find(p);
   std::size_t root_q = find(q);
 
